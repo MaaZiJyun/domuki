@@ -54,9 +54,21 @@ export default function LearningDocument() {
                   <ol className={`mt-3 ml-8 space-y-2 border-l pl-4 ${isDark ? "border-white/15" : "border-black/15"}`}>
                     {chapter.sections.map((section) => (
                       <li key={section.id} className="list-none">
-                        <a href={`#${section.id}`} className={`text-xs leading-5 transition-colors hover:text-current ${muted}`}>
+                        <a href={`#${section.id}`} className={`block text-xs leading-5 transition-colors hover:text-current ${muted}`}>
                           {section.number} · {section.title[language]}
                         </a>
+                        <ol className="mt-1.5 ml-3 space-y-1.5 p-0">
+                          {section.subsections.map((subsection) => (
+                            <li key={subsection.id} className="list-none">
+                              <a
+                                href={`#${subsection.id}`}
+                                className={`block text-[11px] leading-5 transition-colors hover:text-current ${muted}`}
+                              >
+                                {subsection.number} · {subsection.title[language]}
+                              </a>
+                            </li>
+                          ))}
+                        </ol>
                       </li>
                     ))}
                   </ol>
@@ -90,17 +102,31 @@ export default function LearningDocument() {
                   <h2 className="m-0 text-[clamp(30px,5vw,56px)] font-medium tracking-[-0.04em]">
                     {chapter.title[language]}
                   </h2>
-                  <div className="mt-8 space-y-5">
-                    {chapter.sections.map((section) => (
-                      <div key={section.id} id={section.id} className="scroll-mt-28 border-t border-current/15 pt-5">
-                        <div className="flex items-baseline gap-4">
-                          <span className={`text-[10px] tracking-[0.16em] ${muted}`}>{section.number}</span>
-                          <h3 className="m-0 text-lg font-medium">{section.title[language]}</h3>
-                        </div>
-                        <p className={`mt-3 ml-10 text-sm ${muted}`}>{text.status}</p>
-                      </div>
-                    ))}
-                  </div>
+                  {chapter.sections.length === 0 ? (
+                    <p className={`mt-6 text-sm ${muted}`}>{text.status}</p>
+                  ) : (
+                    <div className="mt-8 space-y-8">
+                      {chapter.sections.map((section) => (
+                        <section key={section.id} id={section.id} className="scroll-mt-28 border-t border-current/15 pt-5">
+                          <div className="flex items-baseline gap-4">
+                            <span className={`text-[10px] tracking-[0.16em] ${muted}`}>{section.number}</span>
+                            <h3 className="m-0 text-lg font-medium">{section.title[language]}</h3>
+                          </div>
+                          <div className="mt-4 ml-10 divide-y divide-current/10">
+                            {section.subsections.map((subsection) => (
+                              <div key={subsection.id} id={subsection.id} className="scroll-mt-28 py-4 first:pt-0">
+                                <div className="flex items-baseline gap-4">
+                                  <span className={`text-[9px] tracking-[0.14em] ${muted}`}>{subsection.number}</span>
+                                  <h4 className="m-0 text-base font-medium">{subsection.title[language]}</h4>
+                                </div>
+                                <p className={`mt-2 text-sm ${muted}`}>{text.status}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      ))}
+                    </div>
+                  )}
                 </section>
               ))}
             </div>

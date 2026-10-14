@@ -28,14 +28,10 @@ export default function HomeHero() {
 
   return (
     <main
-      className={`relative isolate h-screen min-h-[640px] w-screen overflow-hidden ${
-        isDark
-          ? "bg-[radial-gradient(circle_at_72%_38%,rgba(239,69,81,0.15),transparent_30%),linear-gradient(120deg,transparent_55%,#29171a_130%)]"
-          : "bg-[radial-gradient(circle_at_72%_38%,rgba(184,21,34,0.12),transparent_30%),linear-gradient(120deg,transparent_55%,#eadadd_130%)]"
-      }`}
+      className={`relative isolate h-screen min-h-[640px] w-screen overflow-hidden}`}
     >
       <div
-        className={`absolute inset-x-0 top-[48%] z-10 w-full -translate-x-[0.0742em] -translate-y-1/2 select-none whitespace-nowrap text-center [font-family:var(--font-calligraphy)] text-[clamp(240px,34vw,660px)] leading-[0.78] tracking-[-0.11em] max-[820px]:top-[28%] max-[820px]:text-[clamp(170px,52vw,320px)] ${
+        className={`absolute inset-x-0 top-[48%] z-10 w-full -translate-x-[0.2em] -translate-y-1/2 select-none whitespace-nowrap text-center [font-family:var(--font-calligraphy)] text-[clamp(320px,44vw,860px)] leading-[0.78] tracking-[-0.24em] max-[820px]:top-[28%] max-[820px]:text-[clamp(220px,68vw,420px)] ${
           isDark ? "text-[#e5e2de]" : "text-[#242325]"
         }`}
         aria-label="童夢綺"
@@ -75,17 +71,19 @@ export default function HomeHero() {
       </p>
 
       <section
-        className={`absolute right-[clamp(24px,5vw,84px)] bottom-[clamp(34px,6vw,88px)] z-30 w-[min(420px,calc(100vw-48px))] border-t border-l pt-[22px] pl-6 max-[820px]:inset-x-[22px] max-[820px]:bottom-7 max-[820px]:w-auto max-[820px]:border max-[820px]:p-[18px_20px] max-[820px]:backdrop-blur-xl ${
+        className={`absolute right-[clamp(44px,8vw,136px)] bottom-[clamp(34px,6vw,88px)] z-30 w-[min(420px,calc(100vw-48px))] border-t border-l pt-[22px] pl-6 max-[820px]:inset-x-[22px] max-[820px]:bottom-7 max-[820px]:w-auto max-[820px]:border max-[820px]:p-[18px_20px] max-[820px]:backdrop-blur-xl ${
           isDark
             ? "border-white/40 [text-shadow:0_1px_18px_#111113] max-[820px]:bg-[#111113]/75 max-[820px]:[text-shadow:none]"
             : "border-black/40 [text-shadow:0_1px_18px_#f2f0ec] max-[820px]:bg-[#f2f0ec]/75 max-[820px]:[text-shadow:none]"
         }`}
         aria-label={language === "en" ? "Introduction" : "紹介"}
       >
-        <p className={`mb-3 text-[15px] font-bold uppercase tracking-[0.24em] max-[820px]:mb-2 ${accent}`}>
+        <p
+          className={`mb-3 text-[20px] font-bold uppercase tracking-[0.24em] max-[820px]:mb-2 ${accent}`}
+        >
           {text.eyebrow}
         </p>
-        <p className="m-0 text-[12px] leading-[1.7] tracking-[0.01em]">
+        <p className="m-0 text-[15px] leading-[1.7] tracking-[0.01em]">
           {text.introduction}
         </p>
       </section>
