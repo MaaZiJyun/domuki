@@ -28,7 +28,7 @@ export default function HomeHero() {
 
   return (
     <main
-      className={`relative isolate h-screen min-h-[640px] w-screen overflow-hidden}`}
+      className="relative isolate h-screen min-h-[640px] w-screen overflow-hidden"
     >
       <div
         className={`absolute inset-x-0 top-[48%] z-10 w-full -translate-x-[0.2em] -translate-y-1/2 select-none whitespace-nowrap text-center [font-family:var(--font-calligraphy)] text-[clamp(320px,44vw,860px)] leading-[0.78] tracking-[-0.24em] max-[820px]:top-[28%] max-[820px]:text-[clamp(220px,68vw,420px)] ${
