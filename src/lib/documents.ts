@@ -23,7 +23,22 @@ export type DocumentChapter = {
   sections: DocumentSection[];
 };
 
-export const deepReinforcementLearning = {
+export type DocumentPart = {
+  id: string;
+  number: string;
+  title: LocalizedText;
+  chapters: DocumentChapter[];
+};
+
+export type LearningDocument = {
+  slug: string;
+  title: string;
+  alternateTitle: LocalizedText;
+  description: LocalizedText;
+  parts: DocumentPart[];
+};
+
+export const deepReinforcementLearning: LearningDocument = {
   slug: "deep-reinforcement-learning",
   title: "深層強化学習",
   alternateTitle: {
@@ -34,116 +49,127 @@ export const deepReinforcementLearning = {
     en: "Structured notes on agents, environments, value functions, and learning through interaction.",
     ja: "エージェント、環境、価値関数、そして相互作用による学習についての体系的なノート。",
   },
-  chapters: [
+  parts: [
     {
-      id: "chapter-1",
+      id: "part-1",
       number: "01",
-      title: { en: "Chapter 1", ja: "第1章" },
-      sections: [
+      title: { en: "Part 1 Foundations", ja: "第1部 基礎" },
+      chapters: [
         {
           id: "machine-learning-foundations",
-          number: "1.1",
+          number: "01",
           title: { en: "Machine learning foundations", ja: "機械学習基礎" },
-          subsections: [
+          sections: [
             {
               id: "linear-models",
-              number: "1.1.1",
+              number: "1.1",
               title: { en: "Linear models", ja: "線形モデル" },
+              subsections: [],
             },
             {
               id: "neural-networks",
-              number: "1.1.2",
+              number: "1.2",
               title: { en: "Neural networks", ja: "ニューラルネットワーク" },
+              subsections: [],
             },
             {
               id: "backpropagation-and-gradient-descent",
-              number: "1.1.3",
+              number: "1.3",
               title: {
                 en: "Backpropagation and gradient descent",
                 ja: "誤差逆伝播と勾配降下法",
               },
+              subsections: [],
             },
           ],
         },
         {
           id: "monte-carlo",
-          number: "1.2",
+          number: "02",
           title: { en: "Monte Carlo", ja: "モンテカルロ" },
-          subsections: [
+          sections: [
             {
               id: "random-variables",
-              number: "1.2.1",
+              number: "2.1",
               title: { en: "Random variables", ja: "確率変数" },
+              subsections: [],
             },
             {
               id: "monte-carlo-estimation",
-              number: "1.2.2",
+              number: "2.2",
               title: { en: "Monte Carlo estimation", ja: "モンテカルロ推定" },
+              subsections: [],
             },
           ],
         },
         {
           id: "reinforcement-learning-foundations",
-          number: "1.3",
+          number: "03",
           title: { en: "Reinforcement learning foundations", ja: "強化学習基礎" },
-          subsections: [
+          sections: [
             {
               id: "markov-decision-processes",
-              number: "1.3.1",
+              number: "3.1",
               title: { en: "Markov decision processes", ja: "マルコフ決定過程" },
+              subsections: [],
             },
             {
               id: "policies",
-              number: "1.3.2",
+              number: "3.2",
               title: { en: "Policies", ja: "方策" },
+              subsections: [],
             },
             {
               id: "sources-of-randomness",
-              number: "1.3.3",
+              number: "3.3",
               title: { en: "Sources of randomness", ja: "ランダム性の源泉" },
+              subsections: [],
             },
             {
               id: "returns-and-discounted-returns",
-              number: "1.3.4",
+              number: "3.4",
               title: { en: "Returns and discounted returns", ja: "リターンと割引リターン" },
+              subsections: [],
             },
             {
               id: "value-functions",
-              number: "1.3.5",
+              number: "3.5",
               title: { en: "Value functions", ja: "価値関数" },
+              subsections: [],
             },
             {
               id: "experimental-environments",
-              number: "1.3.6",
+              number: "3.6",
               title: { en: "Experimental environments", ja: "実験環境" },
+              subsections: [],
             },
           ],
         },
       ],
     },
     {
-      id: "chapter-2",
+      id: "part-2",
       number: "02",
-      title: { en: "Chapter 2", ja: "第2章" },
-      sections: [],
+      title: { en: "Part 2", ja: "第2部" },
+      chapters: [],
     },
     {
-      id: "chapter-3",
+      id: "part-3",
       number: "03",
-      title: { en: "Chapter 3", ja: "第3章" },
-      sections: [],
+      title: { en: "Part 3", ja: "第3部" },
+      chapters: [],
     },
     {
-      id: "chapter-4",
+      id: "part-4",
       number: "04",
-      title: { en: "Chapter 4", ja: "第4章" },
-      sections: [],
+      title: { en: "Part 4", ja: "第4部" },
+      chapters: [],
     },
     {
-      id: "chapter-5",
+      id: "part-5",
       number: "05",
-      title: { en: "Chapter 5", ja: "第5章" },
-      sections: [],
+      title: { en: "Part 5", ja: "第5部" },
+      chapters: [],
     },
-  ] satisfies DocumentChapter[],
+  ],
 } as const;

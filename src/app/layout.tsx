@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import SiteShell from "@/components/site-shell";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 
 const calligraphy = localFont({

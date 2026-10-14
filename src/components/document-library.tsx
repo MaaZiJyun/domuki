@@ -9,14 +9,14 @@ const copy = {
     kicker: "Notes, studies, and process",
     title: "Document",
     intro: "A growing archive of subjects explored in depth.",
-    chapters: "Chapters & sections",
+    parts: "Parts, chapters & sections",
     open: "Open document",
   },
   ja: {
     kicker: "ノート・研究・制作過程",
     title: "文書",
     intro: "ひとつのテーマを深く掘り下げていく、成長中のアーカイブです。",
-    chapters: "章・小節",
+    parts: "部・章・節",
     open: "文書を開く",
   },
 };
@@ -73,7 +73,7 @@ export default function DocumentLibrary() {
             </div>
             <div className="flex items-center justify-between gap-8 md:flex-col md:items-end">
               <span className={`text-[10px] font-bold uppercase tracking-[0.14em] ${muted}`}>
-                {document.chapters.length} {text.chapters}
+                {document.parts.length} {text.parts}
               </span>
               <span className={`text-sm font-bold uppercase tracking-[0.14em] ${accent}`}>
                 {text.open} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
