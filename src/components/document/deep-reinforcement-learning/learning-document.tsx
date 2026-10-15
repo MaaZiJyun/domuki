@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { deepReinforcementLearning } from "@/lib/documents";
-import LinearModelsContent from "@/components/linear-models-content";
-import { revealClass, useSitePreferences } from "@/components/site-shell";
+import LinearModelsContent from "@/components/document/deep-reinforcement-learning/linear-models-content";
+import { revealClass } from "@/components/layout/reveal";
+import { useSitePreferences } from "@/components/layout/site-shell";
 
 const copy = {
   en: {

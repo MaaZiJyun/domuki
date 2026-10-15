@@ -1,7 +1,7 @@
-import MathFormula from "@/components/math-formula";
-import LinearRegressionVisualizer from "@/components/linear-regression-visualizer";
-import LogisticRegressionContent from "@/components/logistic-regression-content";
-import ProcessFlow from "@/components/process-flow";
+import MathFormula from "@/components/document/deep-reinforcement-learning/math-formula";
+import LinearRegressionVisualizer from "@/components/document/deep-reinforcement-learning/visualizers/linear-regression-visualizer";
+import LogisticRegressionContent from "@/components/document/deep-reinforcement-learning/logistic-regression-content";
+import ProcessFlow from "@/components/document/deep-reinforcement-learning/process-flow";
 
 function NoteHeading({ children }: { children: React.ReactNode }) {
   return <h5 className="m-0 text-xl font-semibold tracking-[-0.02em]">{children}</h5>;

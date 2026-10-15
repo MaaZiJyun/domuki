@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import LearningDocument from "@/components/learning-document";
+import LearningDocument from "@/components/document/deep-reinforcement-learning/learning-document";
 
 export const metadata: Metadata = {
   title: "Deep Reinforcement Learning",

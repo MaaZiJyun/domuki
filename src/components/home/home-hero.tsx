@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { fadeClass, revealClass, useSitePreferences } from "@/components/site-shell";
+import { fadeClass, revealClass } from "@/components/layout/reveal";
+import { useSitePreferences } from "@/components/layout/site-shell";
 
 const copy = {
   en: {

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { revealClass, useSitePreferences } from "@/components/site-shell";
+import { revealClass } from "@/components/layout/reveal";
+import { useSitePreferences } from "@/components/layout/site-shell";
 
 type ArchiveKind = "document" | "music";
 

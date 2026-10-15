@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { deepReinforcementLearning } from "@/lib/documents";
-import { revealClass, useSitePreferences } from "@/components/site-shell";
+import { revealClass } from "@/components/layout/reveal";
+import { useSitePreferences } from "@/components/layout/site-shell";
 
 const copy = {
   en: {

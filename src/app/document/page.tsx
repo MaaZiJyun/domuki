@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import DocumentLibrary from "@/components/document-library";
+import DocumentLibrary from "@/components/document/document-library";
 
 export const metadata: Metadata = {
   title: "Document",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MusicLibrary from "@/components/music-library";
+import MusicLibrary from "@/components/music/music-library";
 
 export const metadata: Metadata = {
   title: "Music",

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MathFormula from "@/components/math-formula";
-import { useSitePreferences } from "@/components/site-shell";
-import VisualizerToggle from "@/components/visualizer-toggle";
+import MathFormula from "@/components/document/deep-reinforcement-learning/math-formula";
+import VisualizerToggle from "@/components/document/deep-reinforcement-learning/visualizer-toggle";
+import { useSitePreferences } from "@/components/layout/site-shell";
 
 const input = [0.8, -0.4, 0.6];
 const weights = [0.7, -0.5, 0.9];
