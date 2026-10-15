@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useSitePreferences } from "@/components/site-shell";
+import { fadeClass, revealClass, useSitePreferences } from "@/components/site-shell";
 
 const copy = {
   en: {
@@ -21,7 +21,7 @@ const copy = {
 };
 
 export default function HomeHero() {
-  const { language, theme } = useSitePreferences();
+  const { language, theme, isReady } = useSitePreferences();
   const text = copy[language];
   const isDark = theme === "dark";
   const accent = isDark ? "text-[#ef4551]" : "text-[#b81522]";
@@ -31,7 +31,7 @@ export default function HomeHero() {
       className="relative isolate h-screen min-h-[640px] w-screen overflow-hidden"
     >
       <div
-        className={`absolute inset-x-0 top-[48%] z-10 w-full -translate-x-[0.2em] -translate-y-1/2 select-none whitespace-nowrap text-center [font-family:var(--font-calligraphy)] text-[clamp(320px,44vw,860px)] leading-[0.78] tracking-[-0.24em] max-[820px]:top-[28%] max-[820px]:text-[clamp(220px,68vw,420px)] ${
+        className={`absolute inset-x-0 top-[48%] z-10 w-full -translate-x-[0.2em] -translate-y-1/2 select-none whitespace-nowrap text-center [font-family:var(--font-calligraphy)] text-[clamp(320px,44vw,860px)] leading-[0.78] tracking-[-0.24em] max-[820px]:top-[28%] max-[820px]:text-[clamp(220px,68vw,420px)] ${fadeClass(isReady, 1)} ${
           isDark ? "text-[#e5e2de]" : "text-[#242325]"
         }`}
         aria-label="童夢綺"
@@ -40,7 +40,7 @@ export default function HomeHero() {
       </div>
 
       <div
-        className="pointer-events-none absolute top-1/2 left-[47.5%] z-20 h-screen w-auto -translate-x-1/2 -translate-y-1/2 aspect-[1672/941] drop-shadow-[0_26px_35px_rgba(66,28,31,0.12)] max-[820px]:top-[49%]"
+        className={`pointer-events-none absolute top-1/2 left-[47.5%] z-20 h-screen w-auto -translate-x-1/2 -translate-y-1/2 aspect-[1672/941] drop-shadow-[0_26px_35px_rgba(66,28,31,0.12)] max-[820px]:top-[49%] ${fadeClass(isReady, 2)}`}
         aria-hidden="true"
       >
         <Image
@@ -54,7 +54,7 @@ export default function HomeHero() {
       </div>
 
       <div
-        className={`pointer-events-none absolute inset-x-0 bottom-0 z-[25] h-[46vh] max-[820px]:h-[54vh] ${
+        className={`pointer-events-none absolute inset-x-0 bottom-0 z-[25] h-[46vh] max-[820px]:h-[54vh] ${fadeClass(isReady, 3)} ${
           isDark
             ? "bg-[linear-gradient(to_bottom,transparent_0%,rgba(17,17,19,0.72)_58%,#111113_100%)]"
             : "bg-[linear-gradient(to_bottom,transparent_0%,rgba(242,240,236,0.74)_58%,#f2f0ec_100%)]"
@@ -63,7 +63,7 @@ export default function HomeHero() {
       />
 
       <p
-        className={`absolute bottom-11 left-[clamp(18px,3.5vw,56px)] z-40 m-0 text-[9px] font-semibold uppercase tracking-[0.24em] [writing-mode:vertical-rl] max-[820px]:hidden ${
+        className={`absolute bottom-11 left-[clamp(18px,3.5vw,56px)] z-40 m-0 text-[9px] font-semibold uppercase tracking-[0.24em] [writing-mode:vertical-rl] max-[820px]:hidden ${revealClass(isReady, 4)} ${
           isDark ? "text-[#a8a4a7]" : "text-[#68666a]"
         }`}
       >
@@ -71,7 +71,7 @@ export default function HomeHero() {
       </p>
 
       <section
-        className={`absolute right-[clamp(44px,8vw,136px)] bottom-[clamp(34px,6vw,88px)] z-30 w-[min(420px,calc(100vw-48px))] border-t border-l pt-[22px] pl-6 max-[820px]:inset-x-[22px] max-[820px]:bottom-7 max-[820px]:w-auto max-[820px]:border max-[820px]:p-[18px_20px] max-[820px]:backdrop-blur-xl ${
+        className={`absolute right-[clamp(44px,8vw,136px)] bottom-[clamp(34px,6vw,88px)] z-30 w-[min(420px,calc(100vw-48px))] border-t border-l pt-[22px] pl-6 max-[820px]:inset-x-[22px] max-[820px]:bottom-7 max-[820px]:w-auto max-[820px]:border max-[820px]:p-[18px_20px] max-[820px]:backdrop-blur-xl ${revealClass(isReady, 5)} ${
           isDark
             ? "border-white/40 [text-shadow:0_1px_18px_#111113] max-[820px]:bg-[#111113]/75 max-[820px]:[text-shadow:none]"
             : "border-black/40 [text-shadow:0_1px_18px_#f2f0ec] max-[820px]:bg-[#f2f0ec]/75 max-[820px]:[text-shadow:none]"

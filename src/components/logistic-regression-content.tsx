@@ -1,6 +1,7 @@
 import LogisticRegressionVisualizer from "@/components/logistic-regression-visualizer";
 import InformationTheoryVisualizer from "@/components/information-theory-visualizer";
 import MathFormula from "@/components/math-formula";
+import ProcessFlow from "@/components/process-flow";
 
 function NoteHeading({ children }: { children: React.ReactNode }) {
   return <h5 className="m-0 text-xl font-semibold tracking-[-0.02em]">{children}</h5>;
@@ -145,21 +146,15 @@ export default function LogisticRegressionContent() {
 
       <section className="space-y-5 border-t border-current/10 pt-8">
         <NoteHeading>逻辑斯蒂回归流程</NoteHeading>
-        <ol className="m-0 grid gap-3 p-0 sm:grid-cols-2">
-          {[
-            ["01", "逻辑斯蒂回归", "二分类概率模型"],
-            ["02", "线性变换 + Sigmoid", <MathFormula key="probability">{String.raw`\hat{p}=\sigma(x^T w+b)`}</MathFormula>],
-            ["03", "二元交叉熵损失", "衡量预测概率与真实标签的差异"],
-            ["04", "正则化 + 参数优化", <>最小化目标函数，学习 <MathFormula>w</MathFormula>、<MathFormula>b</MathFormula></>],
-            ["05", "分类预测", "概率阈值 → 类别 0 或 1"],
-          ].map(([number, title, detail]) => (
-            <li key={String(number)} className="list-none border border-current/15 p-4">
-              <span className="text-[9px] tracking-[0.16em] opacity-55">{number}</span>
-              <p className="my-1 font-semibold">{title}</p>
-              <div className="text-sm opacity-75">{detail}</div>
-            </li>
-          ))}
-        </ol>
+        <ProcessFlow
+          steps={[
+            { number: "01", title: "逻辑斯蒂回归", detail: "二分类概率模型" },
+            { number: "02", title: "线性变换 + Sigmoid", detail: <MathFormula>{String.raw`\hat{p}=\sigma(x^T w+b)`}</MathFormula> },
+            { number: "03", title: "二元交叉熵损失", detail: "衡量预测概率与真实标签的差异" },
+            { number: "04", title: "正则化 + 参数优化", detail: <>最小化目标函数，学习 <MathFormula>w</MathFormula>、<MathFormula>b</MathFormula></> },
+            { number: "05", title: "分类预测", detail: "概率阈值 → 类别 0 或 1" },
+          ]}
+        />
       </section>
 
       <section className="space-y-5 border-t border-current/10 pt-8">

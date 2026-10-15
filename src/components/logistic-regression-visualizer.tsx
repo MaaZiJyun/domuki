@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import MathFormula from "@/components/math-formula";
 import { useSitePreferences } from "@/components/site-shell";
+import VisualizerToggle from "@/components/visualizer-toggle";
 
 const input = [0.8, -0.4, 0.6];
 const weights = [0.7, -0.5, 0.9];
@@ -64,31 +65,23 @@ export default function LogisticRegressionVisualizer() {
   ];
 
   return (
-    <figure className="my-8 border border-current/15 bg-current/[0.025] p-[clamp(16px,3vw,28px)]">
-      <div className={`flex flex-wrap items-start justify-between gap-4 ${isExpanded ? "mb-5" : ""}`}>
-        <div>
-          <p className={`m-0 text-[10px] font-bold uppercase tracking-[0.18em] ${accentText}`}>
-            Binary classifier flow
-          </p>
-          <h6 className="mt-1 mb-0 text-lg font-semibold">线性二元分类器流程</h6>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
+    <figure className="my-7">
+      <VisualizerToggle
+        title="线性二元分类器流程"
+        isExpanded={isExpanded}
+        controls="binary-classifier-animation"
+        onToggle={() => {
             const nextExpanded = !isExpanded;
             setIsExpanded(nextExpanded);
             if (!nextExpanded) setIsPlaying(false);
-          }}
-          aria-expanded={isExpanded}
-          aria-controls="binary-classifier-animation"
-          className="border border-current/25 px-4 py-2 text-[10px] font-bold tracking-[0.12em] transition hover:border-[#b81522] hover:text-[#b81522]"
-        >
-          {isExpanded ? "关闭动画 ↑" : "展开动画 ↓"}
-        </button>
-      </div>
+        }}
+      />
 
       {isExpanded && (
-        <div id="binary-classifier-animation">
+        <div
+          id="binary-classifier-animation"
+          className="border border-current/15 bg-current/[0.025] p-[clamp(16px,3vw,28px)]"
+        >
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <p className="m-0 text-xs opacity-65">红色高亮表示数据当前所在的计算阶段。</p>
             <button

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { deepReinforcementLearning } from "@/lib/documents";
-import { useSitePreferences } from "@/components/site-shell";
+import { revealClass, useSitePreferences } from "@/components/site-shell";
 
 const copy = {
   en: {
@@ -22,7 +22,7 @@ const copy = {
 };
 
 export default function DocumentLibrary() {
-  const { language, theme } = useSitePreferences();
+  const { language, theme, isReady } = useSitePreferences();
   const text = copy[language];
   const document = deepReinforcementLearning;
   const isDark = theme === "dark";
@@ -33,7 +33,7 @@ export default function DocumentLibrary() {
     <main className={`min-h-svh px-[clamp(24px,7vw,112px)] pt-36 pb-16 ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}>
       <div className="mx-auto max-w-[1280px]">
         <div className="grid items-end gap-10 border-b border-current/15 pb-12 md:grid-cols-[1fr_auto]">
-          <div>
+          <div className={revealClass(isReady, 1)}>
             <p className={`mb-4 text-[10px] font-bold uppercase tracking-[0.24em] ${accent}`}>
               02 · {text.kicker}
             </p>
@@ -47,10 +47,10 @@ export default function DocumentLibrary() {
               {text.title}<span className={accent}>.</span>
             </h1>
           </div>
-          <p className={`mb-1 max-w-[340px] text-base leading-7 ${muted}`}>{text.intro}</p>
+          <p className={`mb-1 max-w-[340px] text-base leading-7 ${revealClass(isReady, 2)} ${muted}`}>{text.intro}</p>
         </div>
 
-        <section className="pt-10" aria-label="Documents">
+        <section className={`pt-10 ${revealClass(isReady, 4)}`} aria-label="Documents">
           <Link
             href={`/document/${document.slug}`}
             className={`group grid min-h-[250px] gap-8 border p-[clamp(24px,4vw,52px)] transition duration-300 hover:-translate-y-1 md:grid-cols-[90px_1fr_auto] md:items-center ${

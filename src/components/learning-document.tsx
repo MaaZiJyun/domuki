@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { deepReinforcementLearning } from "@/lib/documents";
 import LinearModelsContent from "@/components/linear-models-content";
-import { useSitePreferences } from "@/components/site-shell";
+import { revealClass, useSitePreferences } from "@/components/site-shell";
 
 const copy = {
   en: {
@@ -23,7 +23,7 @@ const copy = {
 };
 
 export default function LearningDocument() {
-  const { language, theme } = useSitePreferences();
+  const { language, theme, isReady } = useSitePreferences();
   const text = copy[language];
   const document = deepReinforcementLearning;
   const isDark = theme === "dark";
@@ -32,16 +32,16 @@ export default function LearningDocument() {
   const panel = isDark ? "border-white/15 bg-white/[0.025]" : "border-black/15 bg-white/30";
 
   return (
-    <main className={`min-h-svh px-[clamp(20px,5vw,80px)] pt-28 pb-20 ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}>
-      <div className="mx-auto max-w-[1440px]">
-        <nav className={`mb-12 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] ${muted}`} aria-label="Breadcrumb">
+    <main className={`h-svh overflow-hidden px-[clamp(20px,5vw,80px)] pt-28 pb-6 ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}>
+      <div className="mx-auto flex h-full min-h-0 max-w-[1440px] flex-col">
+        <nav className={`mb-7 flex shrink-0 items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] ${revealClass(isReady, 1)} ${muted}`} aria-label="Breadcrumb">
           <Link href="/document" className="transition-colors hover:text-current">{text.document}</Link>
           <span aria-hidden="true">/</span>
           <span className={accent}>{document.title}</span>
         </nav>
 
-        <div className="grid gap-12 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-[clamp(56px,7vw,110px)]">
-          <aside className="lg:sticky lg:top-28 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto lg:pr-5">
+        <div className="grid min-h-0 flex-1 grid-rows-[minmax(150px,30vh)_minmax(0,1fr)] gap-7 lg:grid-cols-[300px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-[clamp(42px,5vw,80px)]">
+          <aside className={`min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain border-b border-current/10 pr-3 pb-7 [scrollbar-gutter:stable] lg:border-r lg:border-b-0 lg:pr-7 ${revealClass(isReady, 2)}`}>
             <p className={`mb-6 text-[10px] font-bold uppercase tracking-[0.22em] ${accent}`}>
               {text.contents}
             </p>
@@ -78,8 +78,8 @@ export default function LearningDocument() {
             </ol>
           </aside>
 
-          <article className="min-w-0 max-w-[900px]">
-            <header className="border-b border-current/15 pb-12">
+          <article className="min-h-0 min-w-0 w-full max-w-[900px] overflow-x-hidden overflow-y-auto overscroll-contain pr-2 pb-20 [scrollbar-gutter:stable] lg:pr-5">
+            <header className={`border-b border-current/15 pb-12 ${revealClass(isReady, 3)}`}>
               <p className={`mb-4 text-[10px] font-bold uppercase tracking-[0.22em] ${accent}`}>
                 {document.alternateTitle[language]}
               </p>
@@ -89,12 +89,12 @@ export default function LearningDocument() {
               <p className={`mt-8 max-w-[720px] text-lg leading-8 ${muted}`}>{document.description[language]}</p>
             </header>
 
-            <section className="py-12">
+            <section className={`py-12 ${revealClass(isReady, 4)}`}>
               <h2 className="text-3xl font-medium tracking-[-0.03em]">{text.introduction}</h2>
               <p className={`mt-5 max-w-[680px] leading-8 ${muted}`}>{text.note}</p>
             </section>
 
-            <div className="space-y-10">
+            <div className={`space-y-10 ${revealClass(isReady, 5)}`}>
               {document.parts.map((part) => (
                 <section key={part.id} id={part.id} className={`scroll-mt-28 border p-[clamp(22px,4vw,44px)] ${panel}`}>
                   <p className={`mb-3 text-[10px] font-bold tracking-[0.2em] ${accent}`}>

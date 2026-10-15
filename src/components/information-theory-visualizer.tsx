@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import MathFormula from "@/components/math-formula";
 import { useSitePreferences } from "@/components/site-shell";
+import VisualizerToggle from "@/components/visualizer-toggle";
 
 const epsilon = 0.001;
 
@@ -97,31 +98,23 @@ export default function InformationTheoryVisualizer() {
   }, [isMatching, p]);
 
   return (
-    <figure className="my-8 border border-current/15 bg-current/[0.025] p-[clamp(16px,3vw,28px)]">
-      <div className={`flex flex-wrap items-start justify-between gap-4 ${isExpanded ? "mb-6" : ""}`}>
-        <div>
-          <p className={`m-0 text-[10px] font-bold uppercase tracking-[0.18em] ${accentText}`}>
-            Information theory map
-          </p>
-          <h6 className="mt-1 mb-0 text-lg font-semibold">一张图理解熵、交叉熵与 KL 散度</h6>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
+    <figure className="my-7">
+      <VisualizerToggle
+        title="一张图理解熵、交叉熵与 KL 散度"
+        isExpanded={isExpanded}
+        controls="information-theory-diagram"
+        onToggle={() => {
             const nextExpanded = !isExpanded;
             setIsExpanded(nextExpanded);
             if (!nextExpanded) setIsMatching(false);
-          }}
-          aria-expanded={isExpanded}
-          aria-controls="information-theory-diagram"
-          className="border border-current/25 px-4 py-2 text-[10px] font-bold tracking-[0.12em] transition hover:border-[#b81522] hover:text-[#b81522]"
-        >
-          {isExpanded ? "关闭图示 ↑" : "展开图示 ↓"}
-        </button>
-      </div>
+        }}
+      />
 
       {isExpanded && (
-        <div id="information-theory-diagram">
+        <div
+          id="information-theory-diagram"
+          className="border border-current/15 bg-current/[0.025] p-[clamp(16px,3vw,28px)]"
+        >
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)]">
             <div className="border border-current/15 p-5">
               <div className="mb-5 flex flex-wrap items-center justify-between gap-3">

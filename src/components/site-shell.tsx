@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import SiteLoader from "@/components/site-loader";
 
 type Language = "en" | "ja";
 type Theme = "light" | "dark";
@@ -10,15 +11,102 @@ type Theme = "light" | "dark";
 type Preferences = {
   language: Language;
   theme: Theme;
+  isReady: boolean;
 };
 
-const PreferencesContext = createContext<Preferences>({ language: "en", theme: "light" });
+const PreferencesContext = createContext<Preferences>({
+  language: "en",
+  theme: "light",
+  isReady: false,
+});
+
+type RevealDelay = 0 | 1 | 2 | 3 | 4 | 5;
+
+const revealDelays: Record<RevealDelay, string> = {
+  0: "delay-0",
+  1: "delay-100",
+  2: "delay-200",
+  3: "delay-300",
+  4: "delay-500",
+  5: "delay-700",
+};
+
+export function revealClass(isReady: boolean, delay: RevealDelay = 0) {
+  return `transition-[opacity,transform] duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:transition-none ${
+    isReady
+      ? `translate-y-0 opacity-100 ${revealDelays[delay]}`
+      : "translate-y-5 opacity-0"
+  }`;
+}
+
+export function fadeClass(isReady: boolean, delay: RevealDelay = 0) {
+  return `transition-opacity duration-700 ease-out motion-reduce:transition-none ${
+    isReady ? `opacity-100 ${revealDelays[delay]}` : "opacity-0"
+  }`;
+}
 
 const navigation = [
   { href: "/", en: "Home", ja: "ホーム" },
   { href: "/document", en: "Document", ja: "文書" },
   { href: "/music", en: "Music", ja: "音楽" },
 ];
+
+const FONT_VARIABLES = ["--font-calligraphy", "--font-japanese-calligraphy"];
+const FONT_SAMPLE = "童夢綺 文書 音楽 Domuki";
+
+function waitForWindowLoad() {
+  if (document.readyState === "complete") return Promise.resolve();
+
+  return new Promise<void>((resolve) => {
+    window.addEventListener("load", () => resolve(), { once: true });
+  });
+}
+
+async function waitForFonts() {
+  if (!("fonts" in document)) return;
+
+  const rootStyle = getComputedStyle(document.documentElement);
+  const fontFamilies = FONT_VARIABLES.map((variable) =>
+    rootStyle.getPropertyValue(variable).trim(),
+  ).filter(Boolean);
+
+  await Promise.all(
+    fontFamilies.map((fontFamily) =>
+      document.fonts.load(`1em ${fontFamily}`, FONT_SAMPLE),
+    ),
+  );
+  await document.fonts.ready;
+}
+
+async function waitForImages() {
+  await Promise.all(
+    Array.from(document.images).map(async (image) => {
+      if (!image.complete) {
+        await new Promise<void>((resolve) => {
+          image.addEventListener("load", () => resolve(), { once: true });
+          image.addEventListener("error", () => resolve(), { once: true });
+          if (image.complete) resolve();
+        });
+      }
+
+      if (image.decode) {
+        await image.decode().catch(() => undefined);
+      }
+    }),
+  );
+}
+
+function waitForResources(timeoutMs: number) {
+  return new Promise<void>((resolve) => {
+    const timeout = window.setTimeout(resolve, timeoutMs);
+
+    Promise.allSettled([waitForWindowLoad(), waitForFonts(), waitForImages()])
+      .finally(() => {
+        window.clearTimeout(timeout);
+        resolve();
+      });
+  });
+}
 
 export function useSitePreferences() {
   return useContext(PreferencesContext);
@@ -52,11 +140,13 @@ function MoonIcon() {
 function SiteHeader({
   language,
   theme,
+  isReady,
   setLanguage,
   setTheme,
 }: {
   language: Language;
   theme: Theme;
+  isReady: boolean;
   setLanguage: (language: Language) => void;
   setTheme: (theme: Theme) => void;
 }) {
@@ -67,7 +157,7 @@ function SiteHeader({
   const muted = theme === "dark" ? "text-[#a8a4a7]" : "text-[#68666a]";
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex h-[84px] items-center justify-between px-[clamp(22px,4vw,68px)] max-[820px]:h-[72px] max-[820px]:px-[18px]">
+    <header className={`pointer-events-none fixed inset-x-0 top-0 z-50 flex h-[84px] items-center justify-between px-[clamp(22px,4vw,68px)] max-[820px]:h-[72px] max-[820px]:px-[18px] ${revealClass(isReady, 1)}`}>
       <nav
         className={`pointer-events-auto flex items-center gap-[clamp(20px,3vw,48px)] rounded-full border px-10 py-2.5 backdrop-blur-2xl max-[820px]:gap-4 max-[820px]:px-[13px] max-[820px]:py-[9px] ${surface}`}
         aria-label="Primary navigation"
@@ -125,25 +215,59 @@ function SiteHeader({
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("en");
   const [theme, setTheme] = useState<Theme>("light");
-  const preferences = useMemo(() => ({ language, theme }), [language, theme]);
+  const [isReady, setIsReady] = useState(false);
+  const preferences = useMemo(
+    () => ({ language, theme, isReady }),
+    [language, theme, isReady],
+  );
+
+  useEffect(() => {
+    let isCancelled = false;
+    const startedAt = performance.now();
+
+    async function revealSite() {
+      await waitForResources(8000);
+
+      const remainingDelay = Math.max(0, 500 - (performance.now() - startedAt));
+      if (remainingDelay > 0) {
+        await new Promise((resolve) => window.setTimeout(resolve, remainingDelay));
+      }
+
+      if (!isCancelled) setIsReady(true);
+    }
+
+    void revealSite();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   return (
     <PreferencesContext.Provider value={preferences}>
       <div
-        className={`min-h-svh overflow-x-hidden [font-family:'Times_New_Roman',Times,'Yu_Mincho','Hiragino_Mincho_ProN',serif] transition-colors duration-500 selection:text-white ${
+        className={`${isReady ? "min-h-svh" : "h-svh overflow-hidden"} overflow-x-hidden [font-family:'Times_New_Roman',Times,'Yu_Mincho','Hiragino_Mincho_ProN',serif] transition-colors duration-500 selection:text-white ${
           theme === "dark"
             ? "bg-[#111113] text-[#f1efeb] selection:bg-[#ef4551]"
             : "bg-[#f2f0ec] text-[#151517] selection:bg-[#b81522]"
         }`}
         lang={language}
       >
-        <SiteHeader
-          language={language}
-          theme={theme}
-          setLanguage={setLanguage}
-          setTheme={setTheme}
-        />
-        {children}
+        <div
+          className={isReady ? "" : "pointer-events-none"}
+          aria-hidden={!isReady}
+        >
+          <SiteHeader
+            language={language}
+            theme={theme}
+            isReady={isReady}
+            setLanguage={setLanguage}
+            setTheme={setTheme}
+          />
+          {children}
+        </div>
+
+        <SiteLoader isReady={isReady} />
       </div>
     </PreferencesContext.Provider>
   );

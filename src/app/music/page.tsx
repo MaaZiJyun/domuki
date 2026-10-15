@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ArchivePage from "@/components/archive-page";
+import MusicLibrary from "@/components/music-library";
 
 export const metadata: Metadata = {
   title: "Music",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function MusicPage() {
-  return <ArchivePage kind="music" />;
+  return <MusicLibrary />;
 }

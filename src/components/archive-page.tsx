@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSitePreferences } from "@/components/site-shell";
+import { revealClass, useSitePreferences } from "@/components/site-shell";
 
 type ArchiveKind = "document" | "music";
 
@@ -45,7 +45,7 @@ const content = {
 } as const;
 
 export default function ArchivePage({ kind }: { kind: ArchiveKind }) {
-  const { language, theme } = useSitePreferences();
+  const { language, theme, isReady } = useSitePreferences();
   const page = content[kind];
   const text = page[language];
   const isDark = theme === "dark";
@@ -59,17 +59,17 @@ export default function ArchivePage({ kind }: { kind: ArchiveKind }) {
       }`}
     >
       <div
-        className={`pointer-events-none absolute top-[8%] -right-[10vw] aspect-square w-[min(70vw,960px)] rounded-full ${
+        className={`pointer-events-none absolute top-[8%] -right-[10vw] aspect-square w-[min(70vw,960px)] rounded-full ${revealClass(isReady, 1)} ${
           isDark
             ? "bg-[radial-gradient(circle,rgba(239,69,81,0.15),transparent_68%)]"
             : "bg-[radial-gradient(circle,rgba(184,21,34,0.12),transparent_68%)]"
         }`}
         aria-hidden="true"
       />
-      <p className={`absolute top-[90px] left-[clamp(24px,8vw,130px)] m-0 text-[10px] tracking-[0.28em] max-[820px]:top-[92px] max-[820px]:left-6 ${muted}`}>
+      <p className={`absolute top-[90px] left-[clamp(24px,8vw,130px)] m-0 text-[10px] tracking-[0.28em] max-[820px]:top-[92px] max-[820px]:left-6 ${revealClass(isReady, 1)} ${muted}`}>
         {page.index}
       </p>
-      <section className="relative z-10 max-w-[860px] self-center">
+      <section className={`relative z-10 max-w-[860px] self-center ${revealClass(isReady, 2)}`}>
         <p className={`mb-3 text-[10px] font-bold uppercase tracking-[0.24em] ${accent}`}>
           {text.kicker}
         </p>
@@ -88,18 +88,20 @@ export default function ArchivePage({ kind }: { kind: ArchiveKind }) {
         </p>
       </section>
 
-      <div className={`relative z-10 flex items-center gap-3 self-center rounded-full border px-[18px] py-[15px] text-[10px] font-semibold uppercase tracking-[0.12em] max-[820px]:mt-[42px] max-[820px]:self-start ${isDark ? "border-white/20" : "border-black/15"} ${muted}`}>
+      <div className={`relative z-10 flex items-center gap-3 self-center rounded-full border px-[18px] py-[15px] text-[10px] font-semibold uppercase tracking-[0.12em] max-[820px]:mt-[42px] max-[820px]:self-start ${revealClass(isReady, 4)} ${isDark ? "border-white/20" : "border-black/15"} ${muted}`}>
         <span className={`size-1.5 rounded-full ${isDark ? "bg-[#ef4551] shadow-[0_0_0_5px_rgba(239,69,81,0.15)]" : "bg-[#b81522] shadow-[0_0_0_5px_rgba(184,21,34,0.12)]"}`} />
         <span>{text.status}</span>
       </div>
 
-      <Link
-        href="/"
-        className={`relative z-10 inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] transition-colors hover:text-current max-[820px]:mt-auto max-[820px]:pt-12 ${muted}`}
-      >
-        <span aria-hidden="true">←</span>
-        {text.back}
-      </Link>
+      <div className={`relative z-10 w-fit max-[820px]:mt-auto max-[820px]:pt-12 ${revealClass(isReady, 5)}`}>
+        <Link
+          href="/"
+          className={`inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] transition-colors hover:text-current ${muted}`}
+        >
+          <span aria-hidden="true">←</span>
+          {text.back}
+        </Link>
+      </div>
     </main>
   );
 }

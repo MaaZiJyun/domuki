@@ -1,6 +1,7 @@
 import MathFormula from "@/components/math-formula";
 import LinearRegressionVisualizer from "@/components/linear-regression-visualizer";
 import LogisticRegressionContent from "@/components/logistic-regression-content";
+import ProcessFlow from "@/components/process-flow";
 
 function NoteHeading({ children }: { children: React.ReactNode }) {
   return <h5 className="m-0 text-xl font-semibold tracking-[-0.02em]">{children}</h5>;
@@ -118,21 +119,15 @@ export default function LinearModelsContent() {
 
       <section className="space-y-5 border-t border-current/10 pt-8">
         <NoteHeading>线性回归流程</NoteHeading>
-        <ol className="m-0 grid gap-3 p-0 sm:grid-cols-2">
-          {[
-            ["01", "数据准备", <>特征 <MathFormula>x</MathFormula> + 标签 <MathFormula>y</MathFormula></>],
-            ["02", "建立线性模型", <MathFormula key="model">{String.raw`f(x)=x^T w+b`}</MathFormula>],
-            ["03", "定义优化目标", "最小二乘损失 + 可选正则化"],
-            ["04", "训练模型", <>优化参数 <MathFormula>w</MathFormula>、<MathFormula>b</MathFormula></>],
-            ["05", "预测与评估", <MathFormula key="prediction">{String.raw`\hat{y}=x^T\hat{w}+\hat{b}`}</MathFormula>],
-          ].map(([number, title, detail]) => (
-            <li key={String(number)} className="list-none border border-current/15 p-4">
-              <span className="text-[9px] tracking-[0.16em] opacity-55">{number}</span>
-              <p className="my-1 font-semibold">{title}</p>
-              <div className="text-sm opacity-75">{detail}</div>
-            </li>
-          ))}
-        </ol>
+        <ProcessFlow
+          steps={[
+            { number: "01", title: "数据准备", detail: <>特征 <MathFormula>x</MathFormula> + 标签 <MathFormula>y</MathFormula></> },
+            { number: "02", title: "建立线性模型", detail: <MathFormula>{String.raw`f(x)=x^T w+b`}</MathFormula> },
+            { number: "03", title: "定义优化目标", detail: "最小二乘损失 + 可选正则化" },
+            { number: "04", title: "训练模型", detail: <>优化参数 <MathFormula>w</MathFormula>、<MathFormula>b</MathFormula></> },
+            { number: "05", title: "预测与评估", detail: <MathFormula>{String.raw`\hat{y}=x^T\hat{w}+\hat{b}`}</MathFormula> },
+          ]}
+        />
       </section>
 
       <LogisticRegressionContent />

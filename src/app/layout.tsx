@@ -16,6 +16,12 @@ const japaneseCalligraphy = localFont({
   display: "swap",
 });
 
+const lyricsFont = localFont({
+  src: "../../public/font/wendaoxiaozhuanti.ttf",
+  variable: "--font-lyrics",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Domuki — 童夢綺",
@@ -28,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${calligraphy.variable} ${japaneseCalligraphy.variable} antialiased`}
+      className={`${calligraphy.variable} ${japaneseCalligraphy.variable} ${lyricsFont.variable} antialiased`}
     >
       <body className="m-0 min-h-screen">
         <SiteShell>{children}</SiteShell>
