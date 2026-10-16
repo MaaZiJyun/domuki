@@ -95,7 +95,7 @@ export default function AudioPlayer({
             />
             <span
               className={`pointer-events-none absolute size-2.5 -translate-x-1/2 rounded-full border-2 ${
-                isDark ? "border-[#111113] bg-[#ef4551]" : "border-[#f2f0ec] bg-[#b81522]"
+                isDark ? "border-[#111113] bg-[#ef4551]" : "border-[#f4f4f5] bg-[#b81522]"
               }`}
               style={{ left: `${progress}%` }}
             />

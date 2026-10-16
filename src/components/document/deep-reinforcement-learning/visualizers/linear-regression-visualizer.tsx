@@ -122,7 +122,7 @@ export default function LinearRegressionVisualizer() {
                         }}
                       />
                       <span
-                        className={`absolute z-10 size-2.5 -translate-x-1/2 translate-y-1/2 rounded-full border-2 border-current shadow-sm ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}
+                        className={`absolute z-10 size-2.5 -translate-x-1/2 translate-y-1/2 rounded-full border-2 border-current shadow-sm ${isDark ? "bg-[#111113]" : "bg-[#f4f4f5]"}`}
                         style={{ left: `${sample.x * 100}%`, bottom: `${sample.y * 100}%` }}
                         aria-hidden="true"
                       />

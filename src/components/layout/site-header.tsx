@@ -10,6 +10,7 @@ const navigation = [
   { href: "/", en: "Home", ja: "ホーム" },
   { href: "/document", en: "Document", ja: "文書" },
   { href: "/music", en: "Music", ja: "音楽" },
+  { href: "/about", en: "About", ja: "紹介" },
 ];
 
 type SiteHeaderProps = {
@@ -31,7 +32,7 @@ export default function SiteHeader({
   const surface =
     theme === "dark"
       ? "border-white/20 bg-[#111113]/75 text-[#f1efeb]"
-      : "border-black/15 bg-[#f2f0ec]/75 text-[#151517]";
+      : "border-black/15 bg-[#f4f4f5]/75 text-[#151517]";
   const muted = theme === "dark" ? "text-[#a8a4a7]" : "text-[#68666a]";
 
   return (
@@ -39,7 +40,7 @@ export default function SiteHeader({
       className={`pointer-events-none fixed inset-x-0 top-0 z-50 flex h-[84px] items-center justify-between px-[clamp(22px,4vw,68px)] max-[820px]:h-[72px] max-[820px]:px-[18px] ${revealClass(isReady, 1)}`}
     >
       <nav
-        className={`pointer-events-auto flex items-center gap-[clamp(20px,3vw,48px)] rounded-full border px-10 py-2.5 backdrop-blur-2xl max-[820px]:gap-4 max-[820px]:px-[13px] max-[820px]:py-[9px] ${surface}`}
+        className={`pointer-events-auto flex items-center gap-[clamp(20px,3vw,48px)] rounded-full border px-10 py-2.5 backdrop-blur-2xl max-[820px]:gap-3 max-[820px]:px-3 max-[820px]:py-[9px] ${surface}`}
         aria-label="Primary navigation"
       >
         {navigation.map((item) => {

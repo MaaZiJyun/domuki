@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import { deepReinforcementLearning } from "@/lib/documents";
 import LinearModelsContent from "@/components/document/deep-reinforcement-learning/linear-models-content";
+import useActiveReadingSection from "@/components/document/deep-reinforcement-learning/use-active-reading-section";
 import { revealClass } from "@/components/layout/reveal";
 import { useSitePreferences } from "@/components/layout/site-shell";
 
@@ -24,6 +26,9 @@ const copy = {
 };
 
 export default function LearningDocument() {
+  const contentsRef = useRef<HTMLElement>(null);
+  const articleRef = useRef<HTMLElement>(null);
+  const activeSectionId = useActiveReadingSection(articleRef, contentsRef);
   const { language, theme, isReady } = useSitePreferences();
   const text = copy[language];
   const document = deepReinforcementLearning;
@@ -33,7 +38,7 @@ export default function LearningDocument() {
   const panel = isDark ? "border-white/15 bg-white/[0.025]" : "border-black/15 bg-white/30";
 
   return (
-    <main className={`h-svh overflow-hidden px-[clamp(20px,5vw,80px)] pt-28 pb-6 ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}>
+    <main className={`h-svh overflow-hidden px-[clamp(20px,5vw,80px)] pt-28 pb-6 ${isDark ? "bg-[#111113]" : "bg-[#f4f4f5]"}`}>
       <div className="mx-auto flex h-full min-h-0 max-w-[1440px] flex-col">
         <nav className={`mb-7 flex shrink-0 items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] ${revealClass(isReady, 1)} ${muted}`} aria-label="Breadcrumb">
           <Link href="/document" className="transition-colors hover:text-current">{text.document}</Link>
@@ -42,21 +47,41 @@ export default function LearningDocument() {
         </nav>
 
         <div className="grid min-h-0 flex-1 grid-rows-[minmax(150px,30vh)_minmax(0,1fr)] gap-7 lg:grid-cols-[300px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-[clamp(42px,5vw,80px)]">
-          <aside className={`min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain border-b border-current/10 pr-3 pb-7 [scrollbar-gutter:stable] lg:border-r lg:border-b-0 lg:pr-7 ${revealClass(isReady, 2)}`}>
+          <aside ref={contentsRef} className={`min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain border-b border-current/10 pr-3 pb-7 [scrollbar-gutter:stable] lg:border-r lg:border-b-0 lg:pr-7 ${revealClass(isReady, 2)}`}>
             <p className={`mb-6 text-[10px] font-bold uppercase tracking-[0.22em] ${accent}`}>
               {text.contents}
             </p>
             <ol className="m-0 space-y-7 p-0">
               {document.parts.map((part) => (
                 <li key={part.id} className="list-none">
-                  <a href={`#${part.id}`} className="group flex items-baseline gap-3">
+                  <a
+                    href={`#${part.id}`}
+                    data-toc-id={part.id}
+                    aria-current={activeSectionId === part.id ? "location" : undefined}
+                    className="group flex items-baseline gap-3"
+                  >
                     <span className={`text-[9px] tracking-[0.16em] ${muted}`}>{part.number}</span>
-                    <span className="text-sm font-bold">{part.title[language]}</span>
+                    <span className={`transition-[color,font-size,font-weight] duration-200 ${
+                      activeSectionId === part.id
+                        ? `text-base font-extrabold ${accent}`
+                        : "text-sm font-bold"
+                    }`}>
+                      {part.title[language]}
+                    </span>
                   </a>
                   <ol className={`mt-3 ml-8 space-y-3 border-l pl-4 ${isDark ? "border-white/15" : "border-black/15"}`}>
                     {part.chapters.map((chapter) => (
                       <li key={chapter.id} className="list-none">
-                        <a href={`#${chapter.id}`} className={`block text-xs font-semibold leading-5 transition-colors hover:text-current ${muted}`}>
+                        <a
+                          href={`#${chapter.id}`}
+                          data-toc-id={chapter.id}
+                          aria-current={activeSectionId === chapter.id ? "location" : undefined}
+                          className={`block leading-5 transition-[color,font-size,font-weight] duration-200 hover:text-current ${
+                            activeSectionId === chapter.id
+                              ? `text-sm font-extrabold ${accent}`
+                              : `text-xs font-semibold ${muted}`
+                          }`}
+                        >
                           {chapter.number} · {chapter.title[language]}
                         </a>
                         <ol className="mt-1.5 ml-3 space-y-1.5 p-0">
@@ -64,7 +89,13 @@ export default function LearningDocument() {
                             <li key={section.id} className="list-none">
                               <a
                                 href={`#${section.id}`}
-                                className={`block text-[11px] leading-5 transition-colors hover:text-current ${muted}`}
+                                data-toc-id={section.id}
+                                aria-current={activeSectionId === section.id ? "location" : undefined}
+                                className={`block leading-5 transition-[color,font-size,font-weight] duration-200 hover:text-current ${
+                                  activeSectionId === section.id
+                                    ? `text-[13px] font-extrabold ${accent}`
+                                    : `text-[11px] ${muted}`
+                                }`}
                               >
                                 {section.number} · {section.title[language]}
                               </a>
@@ -79,7 +110,7 @@ export default function LearningDocument() {
             </ol>
           </aside>
 
-          <article className="min-h-0 min-w-0 w-full max-w-[900px] overflow-x-hidden overflow-y-auto overscroll-contain pr-2 pb-20 [scrollbar-gutter:stable] lg:pr-5">
+          <article ref={articleRef} className="min-h-0 min-w-0 w-full max-w-[900px] overflow-x-hidden overflow-y-auto overscroll-contain pr-2 pb-20 [scrollbar-gutter:stable] lg:pr-5">
             <header className={`border-b border-current/15 pb-12 ${revealClass(isReady, 3)}`}>
               <p className={`mb-4 text-[10px] font-bold uppercase tracking-[0.22em] ${accent}`}>
                 {document.alternateTitle[language]}
@@ -97,7 +128,7 @@ export default function LearningDocument() {
 
             <div className={`space-y-10 ${revealClass(isReady, 5)}`}>
               {document.parts.map((part) => (
-                <section key={part.id} id={part.id} className={`scroll-mt-28 border p-[clamp(22px,4vw,44px)] ${panel}`}>
+                <section key={part.id} id={part.id} data-reading-section className={`scroll-mt-28 border p-[clamp(22px,4vw,44px)] ${panel}`}>
                   <p className={`mb-3 text-[10px] font-bold tracking-[0.2em] ${accent}`}>
                     PART {part.number}
                   </p>
@@ -109,14 +140,14 @@ export default function LearningDocument() {
                   ) : (
                     <div className="mt-8 space-y-10">
                       {part.chapters.map((chapter) => (
-                        <section key={chapter.id} id={chapter.id} className="scroll-mt-28 border-t border-current/15 pt-6">
+                        <section key={chapter.id} id={chapter.id} data-reading-section className="scroll-mt-28 border-t border-current/15 pt-6">
                           <div className="flex items-baseline gap-4">
                             <span className={`text-[10px] tracking-[0.16em] ${muted}`}>{chapter.number}</span>
                             <h3 className="m-0 text-2xl font-medium">{chapter.title[language]}</h3>
                           </div>
                           <div className="mt-4 ml-10 divide-y divide-current/10">
                             {chapter.sections.map((section) => (
-                              <div key={section.id} id={section.id} className="scroll-mt-28 py-4 first:pt-0">
+                              <div key={section.id} id={section.id} data-reading-section className="scroll-mt-28 py-4 first:pt-0">
                                 <div className="flex items-baseline gap-4">
                                   <span className={`text-[9px] tracking-[0.14em] ${muted}`}>{section.number}</span>
                                   <h4 className="m-0 text-base font-medium">{section.title[language]}</h4>

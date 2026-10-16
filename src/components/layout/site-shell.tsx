@@ -117,7 +117,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         className={`${isReady ? "min-h-svh" : "h-svh overflow-hidden"} overflow-x-hidden [font-family:'Times_New_Roman',Times,'Yu_Mincho','Hiragino_Mincho_ProN',serif] transition-colors duration-500 selection:text-white ${
           theme === "dark"
             ? "bg-[#111113] text-[#f1efeb] selection:bg-[#ef4551]"
-            : "bg-[#f2f0ec] text-[#151517] selection:bg-[#b81522]"
+            : "bg-[#f4f4f5] text-[#151517] selection:bg-[#b81522]"
         }`}
         lang={language}
       >

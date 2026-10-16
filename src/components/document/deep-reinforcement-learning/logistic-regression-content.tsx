@@ -1,4 +1,3 @@
-import LogisticRegressionVisualizer from "@/components/document/deep-reinforcement-learning/visualizers/logistic-regression-visualizer";
 import InformationTheoryVisualizer from "@/components/document/deep-reinforcement-learning/visualizers/information-theory-visualizer";
 import MathFormula from "@/components/document/deep-reinforcement-learning/math-formula";
 import ProcessFlow from "@/components/document/deep-reinforcement-learning/process-flow";
@@ -43,7 +42,33 @@ export default function LogisticRegressionContent() {
 
       <section className="space-y-5 border-t border-current/10 pt-8">
         <NoteHeading>从输入到概率</NoteHeading>
-        <LogisticRegressionVisualizer />
+        <p className="m-0 leading-8">
+          输入向量先经过参数 <MathFormula>w</MathFormula>、<MathFormula>b</MathFormula> 控制的线性变换得到
+          <MathFormula>z</MathFormula>，再由 Sigmoid 函数将其映射为正类概率。
+        </p>
+        <div className="overflow-x-auto py-2 text-center text-lg">
+          <MathFormula display>
+            {String.raw`x\longrightarrow(w,b)\longrightarrow z=x^T w+b\longrightarrow\sigma(z)\longrightarrow\hat{y}=\sigma(z)`}
+          </MathFormula>
+        </div>
+        <div className="space-y-3 text-sm leading-7">
+          <p className="m-0 font-semibold">例：</p>
+          <p className="m-0">
+            设 <MathFormula>{String.raw`x=[0.8,-0.4,0.6]^T`}</MathFormula>，
+            <MathFormula>{String.raw`w=[0.7,-0.5,0.9]^T`}</MathFormula>，
+            <MathFormula>{String.raw`b=-0.2`}</MathFormula>。
+          </p>
+          <MathFormula display>
+            {String.raw`z=x^T w+b=0.8\times0.7+(-0.4)\times(-0.5)+0.6\times0.9-0.2=1.10`}
+          </MathFormula>
+          <MathFormula display>
+            {String.raw`\hat{y}=\sigma(1.10)=\frac{1}{1+e^{-1.10}}\approx0.750`}
+          </MathFormula>
+          <p className="m-0">
+            因此模型预测该样本属于正类的概率约为 <MathFormula>75.0\%</MathFormula>；若分类阈值为
+            <MathFormula>0.5</MathFormula>，则预测类别为 <MathFormula>1</MathFormula>。
+          </p>
+        </div>
       </section>
 
       <section className="space-y-4 border-t border-current/10 pt-8">

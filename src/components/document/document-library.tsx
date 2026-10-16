@@ -31,7 +31,7 @@ export default function DocumentLibrary() {
   const accent = isDark ? "text-[#ef4551]" : "text-[#b81522]";
 
   return (
-    <main className={`min-h-svh px-[clamp(24px,7vw,112px)] pt-36 pb-16 ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}>
+    <main className={`min-h-svh px-[clamp(24px,7vw,112px)] pt-36 pb-16 ${isDark ? "bg-[#111113]" : "bg-[#f4f4f5]"}`}>
       <div className="mx-auto max-w-[1280px]">
         <div className="grid items-end gap-10 border-b border-current/15 pb-12 md:grid-cols-[1fr_auto]">
           <div className={revealClass(isReady, 1)}>

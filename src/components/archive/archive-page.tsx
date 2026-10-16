@@ -56,7 +56,7 @@ export default function ArchivePage({ kind }: { kind: ArchiveKind }) {
   return (
     <main
       className={`relative grid min-h-svh grid-cols-[minmax(0,1fr)_auto] grid-rows-[1fr_auto] overflow-hidden px-[clamp(24px,8vw,130px)] pt-[150px] pb-[68px] max-[820px]:flex max-[820px]:flex-col max-[820px]:justify-center max-[820px]:px-6 max-[820px]:pt-[120px] max-[820px]:pb-[42px] ${
-        isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"
+        isDark ? "bg-[#111113]" : "bg-[#f4f4f5]"
       }`}
     >
       <div

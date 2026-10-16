@@ -58,7 +58,7 @@ export default function HomeHero() {
         className={`pointer-events-none absolute inset-x-0 bottom-0 z-[25] h-[46vh] max-[820px]:h-[54vh] ${fadeClass(isReady, 3)} ${
           isDark
             ? "bg-[linear-gradient(to_bottom,transparent_0%,rgba(17,17,19,0.72)_58%,#111113_100%)]"
-            : "bg-[linear-gradient(to_bottom,transparent_0%,rgba(242,240,236,0.74)_58%,#f2f0ec_100%)]"
+            : "bg-[linear-gradient(to_bottom,transparent_0%,rgba(244,244,245,0.74)_58%,#f4f4f5_100%)]"
         }`}
         aria-hidden="true"
       />
@@ -75,7 +75,7 @@ export default function HomeHero() {
         className={`absolute right-[clamp(44px,8vw,136px)] bottom-[clamp(34px,6vw,88px)] z-30 w-[min(420px,calc(100vw-48px))] border-t border-l pt-[22px] pl-6 max-[820px]:inset-x-[22px] max-[820px]:bottom-7 max-[820px]:w-auto max-[820px]:border max-[820px]:p-[18px_20px] max-[820px]:backdrop-blur-xl ${revealClass(isReady, 5)} ${
           isDark
             ? "border-white/40 [text-shadow:0_1px_18px_#111113] max-[820px]:bg-[#111113]/75 max-[820px]:[text-shadow:none]"
-            : "border-black/40 [text-shadow:0_1px_18px_#f2f0ec] max-[820px]:bg-[#f2f0ec]/75 max-[820px]:[text-shadow:none]"
+            : "border-black/40 [text-shadow:0_1px_18px_#f4f4f5] max-[820px]:bg-[#f4f4f5]/75 max-[820px]:[text-shadow:none]"
         }`}
         aria-label={language === "en" ? "Introduction" : "紹介"}
       >

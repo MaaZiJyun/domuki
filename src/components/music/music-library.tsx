@@ -34,7 +34,7 @@ export default function MusicLibrary() {
   const muted = isDark ? "text-[#a8a4a7]" : "text-[#68666a]";
 
   return (
-    <main className={`min-h-svh px-[clamp(20px,6vw,96px)] pt-32 pb-20 ${isDark ? "bg-[#111113]" : "bg-[#f2f0ec]"}`}>
+    <main className={`min-h-svh px-[clamp(20px,6vw,96px)] pt-32 pb-20 ${isDark ? "bg-[#111113]" : "bg-[#f4f4f5]"}`}>
       <div className="mx-auto max-w-[1380px]">
         <header className={`grid items-end gap-8 border-b border-current/15 pb-10 md:grid-cols-[1fr_auto] ${revealClass(isReady, 1)}`}>
           <div>
